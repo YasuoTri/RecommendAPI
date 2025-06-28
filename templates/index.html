@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Course Recommendation</title>
+  </head>
+  <body>
+    <h1>Course Recommendation System</h1>
+    <form method="POST">
+      <label>User ID:</label>
+      <input type="number" name="user_id" value="1" /><br />
+      <label>Course Name (optional):</label>
+      <select name="course_name">
+        <option value="">Select a course</option>
+        {% for course in courses %}
+        <option value="{{ course }}">{{ course }}</option>
+        {% endfor %}</select
+      ><br />
+      <button type="submit">Get Recommendations</button>
+    </form>
+    <h2>Recommended Courses:</h2>
+    <ul>
+      {% for course in recommendations %}
+      <li>{{ course }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
