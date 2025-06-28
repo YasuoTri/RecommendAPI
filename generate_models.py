@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 def check_data_files():
     """Check if required data files exist."""
     required_files = [
-        'Data/udemy_courses.csv',
+        'Data/udemy_coursesReal.csv',
         'Data/ratings.csv'
     ]
     
@@ -51,7 +51,7 @@ def main():
     try:
         # Generate models
         logger.info("Generating models... This may take a few minutes.")
-        success = update_model('Data/udemy_courses.csv')
+        success = update_model('Data/udemy_coursesReal.csv')
         
         if success:
             logger.info("Models generated successfully!")

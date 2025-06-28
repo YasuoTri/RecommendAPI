@@ -75,7 +75,6 @@ def get_collaborative_recommendations(
     return {"recommendations": recommendations}
 
 
-
 @app.post("/recommend/update-model")
 async def receive_csv_files(
     courses_file: UploadFile = File(...),

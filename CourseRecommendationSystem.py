@@ -36,7 +36,7 @@ def get_level_value(level):
     """Convert course level to numerical value based on hierarchy."""
     return LEVEL_HIERARCHY.get(level.lower().strip(), 0)
 
-def recommend_similar_courses(course_title, data_file='Data/udemy_courses.csv', num_recommendations=20):
+def recommend_similar_courses(course_title, data_file='Data/udemy_coursesReal.csv', num_recommendations=20):
     """
     Recommend courses similar to the input course based on course_title, level, and subject.
     
@@ -190,7 +190,7 @@ def get_popular_courses(courses_list, num_recommendations=5):
         logger.error(f"Error in popular courses: {str(e)}")
         return [{"error": f"Error: {str(e)}"}]
 
-def recommend_collaborative(user_id, data_file='Data/udemy_courses.csv', num_recommendations=20):
+def recommend_collaborative(user_id, data_file='Data/udemy_coursesReal.csv', num_recommendations=20):
     """
     Recommend courses for a user based on collaborative filtering using SVD.
     
@@ -265,7 +265,7 @@ def recommend_collaborative(user_id, data_file='Data/udemy_courses.csv', num_rec
         logger.error(f"Error in collaborative recommendation: {str(e)}")
         return [{"error": f"Error: {str(e)}"}]
 
-def recommend_user_user_cf(user_id, ratings_file='Data/ratings.csv', courses_file='Data/udemy_courses.csv', num_recommendations=10):
+def recommend_user_user_cf(user_id, ratings_file='Data/ratings.csv', courses_file='Data/udemy_coursesReal.csv', num_recommendations=10):
     try:
         # Load data
         ratings = pd.read_csv(ratings_file)
@@ -332,7 +332,7 @@ def recommend_user_user_cf(user_id, ratings_file='Data/ratings.csv', courses_fil
 
 from surprise.model_selection import GridSearchCV
 
-def update_model(data_file='Data/udemy_courses.csv'):
+def update_model(data_file='Data/udemy_coursesReal.csv'):
     """
     Preprocess the Udemy dataset and save the processed data for recommendations.
     
