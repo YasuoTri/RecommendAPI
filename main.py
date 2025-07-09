@@ -24,17 +24,37 @@ except FileNotFoundError as e:
 
 app = FastAPI()
 
+# @app.get("/recommend-similar")
+# def get_similar_courses(
+#     course_title: str = Query(..., description="Course title for content-based recommendations"),
+#     num_recommendations: int = Query(default=20, ge=1, le=30, description="Number of recommendations to return")
+# ):
+#     """
+#     Get recommendations for courses similar to the input course title.
+#     Returns a list of courses with details: course_id, course_title, url, is_paid, price, num_subscribers,
+#     num_reviews, num_lectures, level, content_duration, published_timestamp, subject.
+#     """
+#     recommendations = recommend_similar_courses(course_title, num_recommendations=num_recommendations)
+#     return {"recommendations": recommendations}
+
 @app.get("/recommend-similar")
 def get_similar_courses(
     course_title: str = Query(..., description="Course title for content-based recommendations"),
+    level: str = Query(None, description="Level of the course (e.g., 'beginner', 'intermediate', 'advanced')"),
+    subject: str = Query(None, description="Subject/category of the course (e.g., 'programming', 'data science')"),
     num_recommendations: int = Query(default=20, ge=1, le=30, description="Number of recommendations to return")
 ):
     """
-    Get recommendations for courses similar to the input course title.
+    Get recommendations for courses similar to the input course based on course_title, level, and subject.
     Returns a list of courses with details: course_id, course_title, url, is_paid, price, num_subscribers,
     num_reviews, num_lectures, level, content_duration, published_timestamp, subject.
     """
-    recommendations = recommend_similar_courses(course_title, num_recommendations=num_recommendations)
+    recommendations = recommend_similar_courses(
+        course_title=course_title,
+        level=level,
+        subject=subject,
+        num_recommendations=num_recommendations
+    )
     return {"recommendations": recommendations}
 
 @app.get("/popular-courses")
@@ -75,6 +95,7 @@ def get_collaborative_recommendations(
     return {"recommendations": recommendations}
 
 
+
 @app.post("/recommend/update-model")
 async def receive_csv_files(
     courses_file: UploadFile = File(...),
@@ -105,20 +126,20 @@ async def receive_csv_files(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Lỗi cập nhật mô hình: {str(e)}")
 
-# @app.post("/update-model")
-# def trigger_model_update():
-#     """
-#     Trigger model retraining and update saved models.
-#     """
-#     try:
-#         update_model()
-#         # Reload models after update
-#         global courses_list, tfidf_vectorizer, tfidf_matrix, svd_model, user_item_matrix
-#         courses_list = pickle.load(open('models/courses.pkl', 'rb'))
-#         tfidf_vectorizer = pickle.load(open('models/tfidf_vectorizer.pkl', 'rb'))
-#         tfidf_matrix = pickle.load(open('models/tfidf_matrix.pkl', 'rb'))
-#         svd_model = pickle.load(open('models/svd_model.pkl', 'rb'))
-#         user_item_matrix = pickle.load(open('models/user_item_matrix.pkl', 'rb'))
-#         return {"status": "Model updated successfully"}
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"Model update failed: {str(e)}")
+@app.post("/recommend/update-model-directly")
+def trigger_model_update():
+    """
+    Trigger model retraining and update saved models.
+    """
+    try:
+        update_model()
+        # Reload models after update
+        global courses_list, tfidf_vectorizer, tfidf_matrix, svd_model, user_item_matrix
+        courses_list = pickle.load(open('models/courses.pkl', 'rb'))
+        tfidf_vectorizer = pickle.load(open('models/tfidf_vectorizer.pkl', 'rb'))
+        tfidf_matrix = pickle.load(open('models/tfidf_matrix.pkl', 'rb'))
+        svd_model = pickle.load(open('models/svd_model.pkl', 'rb'))
+        user_item_matrix = pickle.load(open('models/user_item_matrix.pkl', 'rb'))
+        return {"status": "Model updated successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Model update failed: {str(e)}")
