@@ -7,6 +7,7 @@ import logging
 from fastapi import UploadFile, File
 import shutil
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -23,6 +24,14 @@ except FileNotFoundError as e:
     raise HTTPException(status_code=500, detail=f"Model file missing: {e}")
 
 app = FastAPI()
+# Cấu hình CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # hoặc chỉ định domain: ["http://localhost:4200", "https://your-fe.com"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # @app.get("/recommend-similar")
 # def get_similar_courses(
