@@ -14,6 +14,7 @@ from datetime import datetime
 import networkx as nx
 from collections import Counter
 from surprise.model_selection import GridSearchCV
+import random
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -253,10 +254,12 @@ def recommend_similar_courses(course_title, level=None, subject=None, data_file=
             recommendations.append({
                 'course_id': str(course_row['course_id']),
                 'course_title': str(course_row['course_title']),
-                'url': str(course_row['url']),
+                'url': 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+                'course_rating': random.randint(1, 5),
                 'is_paid': bool(course_row['is_paid']),
                 'price': str(course_row['price']),
                 'num_subscribers': int(course_row['num_subscribers']),
+                'course_rating': float(course_row['course_rating']).fillna(0.0),
                 'num_reviews': int(course_row['num_reviews']),
                 'num_lectures': int(course_row['num_lectures']),
                 'level': str(course_row['level']),
@@ -306,7 +309,8 @@ def get_popular_courses(courses_list, num_recommendations=5):
             recommendations.append({
                 'course_id': str(row['course_id']),
                 'course_title': str(row['course_title']),
-                'url': str(row['url']),
+                'url': 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+                'course_rating': random.randint(1, 5),
                 'is_paid': bool(row['is_paid']),
                 'price': str(row['price']),
                 'num_subscribers': int(row['num_subscribers']),
@@ -380,7 +384,8 @@ def recommend_collaborative(user_id, data_file='Data/udemy_courses.csv', num_rec
             recommendations.append({
                 'course_id': str(course_row['course_id']),
                 'course_title': str(course_row['course_title']),
-                'url': str(course_row['url']),
+                'url': 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+                'course_rating': random.randint(1, 5),
                 'is_paid': bool(course_row['is_paid']),
                 'price': str(course_row['price']),
                 'num_subscribers': int(course_row['num_subscribers']),
@@ -445,7 +450,8 @@ def recommend_user_user_cf(user_id, ratings_file='Data/ratings.csv', courses_fil
             result.append({
                 'course_id': row['course_id'],
                 'course_title': row['course_title'],
-                'url': row['url'],
+                'url': 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+                'course_rating': random.randint(1, 5),
                 'is_paid': row['is_paid'],
                 'price': row['price'],
                 'num_subscribers': row['num_subscribers'],
