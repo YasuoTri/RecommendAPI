@@ -15,7 +15,6 @@ import networkx as nx
 from collections import Counter
 from surprise.model_selection import GridSearchCV
 import random
-
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -255,11 +254,10 @@ def recommend_similar_courses(course_title, level=None, subject=None, data_file=
                 'course_id': str(course_row['course_id']),
                 'course_title': str(course_row['course_title']),
                 'url': 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-                'course_rating': random.randint(1, 5),
                 'is_paid': bool(course_row['is_paid']),
                 'price': str(course_row['price']),
+                'course_rating': random.randint(1, 5),
                 'num_subscribers': int(course_row['num_subscribers']),
-                'course_rating': float(course_row['course_rating']).fillna(0.0),
                 'num_reviews': int(course_row['num_reviews']),
                 'num_lectures': int(course_row['num_lectures']),
                 'level': str(course_row['level']),
@@ -309,8 +307,7 @@ def get_popular_courses(courses_list, num_recommendations=5):
             recommendations.append({
                 'course_id': str(row['course_id']),
                 'course_title': str(row['course_title']),
-                'url': 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-                'course_rating': random.randint(1, 5),
+                'url': str(row['url']),
                 'is_paid': bool(row['is_paid']),
                 'price': str(row['price']),
                 'num_subscribers': int(row['num_subscribers']),
@@ -385,9 +382,9 @@ def recommend_collaborative(user_id, data_file='Data/udemy_courses.csv', num_rec
                 'course_id': str(course_row['course_id']),
                 'course_title': str(course_row['course_title']),
                 'url': 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-                'course_rating': random.randint(1, 5),
                 'is_paid': bool(course_row['is_paid']),
                 'price': str(course_row['price']),
+                'course_rating': random.randint(1, 5),
                 'num_subscribers': int(course_row['num_subscribers']),
                 'num_reviews': int(course_row['num_reviews']),
                 'num_lectures': int(course_row['num_lectures']),
