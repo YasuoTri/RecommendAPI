@@ -254,8 +254,7 @@ def recommend_similar_courses(course_title, level=None, subject=None, data_file=
                 'course_id': str(course_row['course_id']),
                 'course_title': str(course_row['course_title']),
                 'url': str(course_row['url']),
-                 'image': 'https://res.cloudinary.com/dj11e209p/image/upload/v1751878057/How-to-Create-an-Online-Course-For-Free--Complete-Guide--6_ulvjwh.jpg',
-               
+                'image': 'https://res.cloudinary.com/dj11e209p/image/upload/v1751878057/How-to-Create-an-Online-Course-For-Free--Complete-Guide--6_ulvjwh.jpg',              
                 'is_paid': bool(course_row['is_paid']),
                 'price': str(course_row['price']),
                 'course_rating': random.randint(1, 5),
@@ -386,8 +385,7 @@ def recommend_collaborative(user_id, data_file='Data/udemy_courses.csv', num_rec
                 'course_id': str(course_row['course_id']),
                 'course_title': str(course_row['course_title']),
                 'url': str(course_row['url']),
-                 'image': 'https://res.cloudinary.com/dj11e209p/image/upload/v1751878057/How-to-Create-an-Online-Course-For-Free--Complete-Guide--6_ulvjwh.jpg',
-               
+                 'image': 'https://res.cloudinary.com/dj11e209p/image/upload/v1751878057/How-to-Create-an-Online-Course-For-Free--Complete-Guide--6_ulvjwh.jpg',          
                 'is_paid': bool(course_row['is_paid']),
                 'price': str(course_row['price']),
                 'course_rating': random.randint(1, 5),
@@ -454,8 +452,7 @@ def recommend_user_user_cf(user_id, ratings_file='Data/ratings.csv', courses_fil
                 'course_id': row['course_id'],
                 'course_title': row['course_title'],
                 'url': row['url'],
-                 'image': 'https://res.cloudinary.com/dj11e209p/image/upload/v1751878057/How-to-Create-an-Online-Course-For-Free--Complete-Guide--6_ulvjwh.jpg',
-               
+                 'image': 'https://res.cloudinary.com/dj11e209p/image/upload/v1751878057/How-to-Create-an-Online-Course-For-Free--Complete-Guide--6_ulvjwh.jpg',         
                 'course_rating': random.randint(1, 5),
                 'is_paid': row['is_paid'],
                 'price': row['price'],
